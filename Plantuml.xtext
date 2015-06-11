@@ -1,3 +1,9 @@
+
+
+
+// Class for generating the grammar for the PlantUML language.
+
+
 grammar org.xtext.Plantuml 
 	with org.eclipse.xtext.common.Terminals
 	hidden (WS, SL_COMMENT)
@@ -14,13 +20,13 @@ Diagram:
 	'@startuml' (instructions+=Instruction)* '@enduml'
 ;
 
-
 // An instruction is either a sequence or a comment
 Instruction:
 	(name=ID Sequence name=ID (':' STRING)?) 
 	| ML_COMMENT
 	| SL_COMMENT
 	| Definition
+	| AutoNumber
 
 ;
 
@@ -59,6 +65,11 @@ Definition:
 	| 'entity' name=ID
 	| 'database' name=ID
 
+;
+
+// Rule for the autonumbering function. Can be followed by one or two numbers, separated by spaces
+AutoNumber:
+	'autonumber' (INT (INT)?)?
 ;
 
 // Terminals
